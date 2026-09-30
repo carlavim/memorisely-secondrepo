@@ -4,26 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pricing Plans — JSX version</title>
+    <!-- Same visual styling as the HTML version — both pages share one stylesheet -->
     <link rel="stylesheet" href="styles.css">
+
+    <!-- React + ReactDOM: the library that lets us build UI with components -->
     <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <!-- Babel: converts JSX (HTML-like syntax) into plain JavaScript, right in the browser -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js" crossorigin></script>
 </head>
 <body>
+    <!-- React will render the entire app inside this empty div -->
     <div id="root"></div>
+
+    <!-- type="text/babel" tells Babel to compile this script's JSX before it runs -->
     <script type="text/babel" data-type="module">
-        // Components can be used INSIDE other components — this is called "composition"
-        // This Button component is small, but it keeps button styling/logic in one place
-        // "variant" defaults to "secondary" if not provided — this is called a default parameter
+
+        /* ============ COMPONENT: Button ============
+           A small, reusable button. Components can be used INSIDE other
+           components — this is called "composition".
+           "variant" defaults to "secondary" if not provided — a default parameter. */
         function Button({ label, variant = "secondary" }) {
             return (
-                // Template literal (``) lets us build a className string with the variant value
+                // Template literal (``) builds a className string using the variant value
+                // e.g. variant="primary" → className="download-button primary"
                 <button className={`download-button ${variant}`}>{label}</button>
             );
         }
 
-        // Same card UI, written as a JSX component (HTML-like syntax inside JavaScript)
-        // This component is reusable - we can create multiple cards by passing different data
+        //* ============ COMPONENT: PricingCard ============
+        //   Renders one full pricing card. Reusable — we create multiple cards
+        //   by passing different data into the same component (see App below). *//
         function PricingCard({ title, price, includesText, features, buttonText, buttonVariant }) {
             return (
                 // JSX uses "className" instead of "class" because "class" is a reserved word in JavaScript
@@ -36,7 +47,7 @@
                         <ul className="features-list">
                             {/* .map() loops through the features array and creates a <li> for each item */}
                             {features.map((feature, i) => (
-                                // "key" helps React track which items changed - using index (i) is OK for static lists
+                                // "key" helps React track which items changed — using index (i) is OK for static lists
                                 <li key={i}>
                                     <span className="checkmark">✓</span>
                                     {feature}
@@ -50,17 +61,24 @@
             );
         }
 
+        /* ============ COMPONENT: App ============
+           The top-level component. Holds the data for each plan and lays out
+           all the pricing cards on the page. */
         function App() {
-            // In JSX, we separate DATA from PRESENTATION
-            // These objects hold all the content for each pricing card
+            // In JSX, we separate DATA from PRESENTATION.
+            // These objects hold all the content for each pricing card.
+
+            // Plan 1: free tier, "secondary" (light/neutral) button
             const hobbyPlan = {
                 title: 'Hobby',
                 price: 'Free',
                 includesText: 'Includes:',
                 features: ['No credit card required', 'Limited Agent requests', 'Limited Tab completions'],
-                buttonText: 'Download',
-                buttonVariant: 'secondary',
+                buttonText: 'Download for free',
+                buttonVariant: 'tertiary',
             };
+
+            // Plan 2: paid tier, "primary" (bold/dark) button to draw attention
             const proPlan = {
                 title: 'Pro',
                 price: '$20/mo.',
@@ -72,11 +90,21 @@
                     'Maximum context windows',
                 ],
                 buttonText: 'Get Pro',
+                buttonVariant: 'secondary',
+            };
+
+            // Plan 3: top tier, "tertiary" (outlined, transparent) button — lowest visual emphasis
+            const businessPlan = {
+                title: 'Business',
+                price: '$50/mo.',
+                includesText: 'Everything in Pro, plus:',
+                features: ['Unlimited Agent requests', 'Unlimited Tab completions', 'Background Agents', 'Maximum context windows'],
+                buttonText: 'Get Business',
                 buttonVariant: 'primary',
             };
 
             return (
-                // <> is a React Fragment - it groups elements without adding extra HTML divs
+                // <> is a React Fragment — it groups elements without adding extra HTML divs
                 <>
                     <p className="page-label"><strong>JSX version</strong> — same UI, built with components</p>
                     <div className="cards-container">
@@ -84,6 +112,7 @@
                         {/* This is the same as writing: title="Hobby" price="Free" includesText="Includes:" etc. */}
                         <PricingCard {...hobbyPlan} />
                         <PricingCard {...proPlan} />
+                        <PricingCard {...businessPlan} />
                     </div>
                 </>
             );

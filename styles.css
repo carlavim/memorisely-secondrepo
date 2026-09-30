@@ -1,9 +1,19 @@
+/* ==========================================================================
+   GLOBAL RESET
+   Removes default browser spacing and makes width/height calculations
+   include padding + border (so sizes are more predictable).
+   ========================================================================== */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* ==========================================================================
+   PAGE BACKGROUND
+   Centres all content (both horizontally and vertically) on the page and
+   sets the base font + background colour for the whole demo.
+   ========================================================================== */
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     background-color: #f7f7f4;
@@ -14,31 +24,43 @@ body {
     padding: 20px;
 }
 
+/* ==========================================================================
+   CARDS CONTAINER
+   Lays out the pricing cards in a row, side by side, with even spacing
+   and centred as a group.
+   ========================================================================== */
 .cards-container {
     display: flex;
     flex-direction: row;
-    gap: 24px;
-    flex-wrap: nowrap;
+    gap: 24px;              /* space between each card */
+    flex-wrap: nowrap;       /* keep cards on one line, never stack */
     justify-content: center;
-    align-items: flex-start;
+    align-items: flex-start; /* top-align cards even if heights differ */
 }
 
+/* ==========================================================================
+   CARD
+   The outer box for a single pricing plan. Uses flex-column so the button
+   at the bottom can be pushed down with "margin-top: auto".
+   ========================================================================== */
 .card {
     display: flex;
     flex-direction: column;
-    min-height: 380px;
+    min-height: 380px;       /* keeps all cards a consistent height */
     background-color: #f2f1ed;
     border-radius: 4px;
     padding: 16px;
     width: 320px;
-    flex-shrink: 0;
+    flex-shrink: 0;          /* prevents the card from squashing in the row */
 }
 
+/* Groups the title, price and feature list together (everything above the button) */
 .card-top {
     display: flex;
     flex-direction: column;
 }
 
+/* Plan name, e.g. "Hobby" / "Pro" */
 .card-title {
     font-size: 22px;
     line-height: 28px;
@@ -47,6 +69,7 @@ body {
     margin-bottom: 8px;
 }
 
+/* Wraps the price amount + period so they align on the same baseline */
 .card-price {
     font-size: 20px;
     color: rgba(38, 37, 30, 0.5);
@@ -54,32 +77,38 @@ body {
     align-items: baseline;
 }
 
+/* The number/word part of the price, e.g. "$20" or "Free" */
 .card-price-amount {
     font-size: 22px;
     font-weight: 400;
     color: rgba(38, 37, 30, 0.5);
 }
 
+/* The smaller suffix after the amount, e.g. "/mo." */
 .card-price-period {
     font-size: 14px;
     color: rgba(38, 37, 30, 0.5);
 }
 
+/* Wraps the "Includes:" label and the feature list below the price */
 .card-content {
     margin-bottom: 32px;
 }
 
+/* Small label above the feature list, e.g. "Includes:" */
 .includes-text {
     font-size: 16px;
     color: rgba(38, 37, 30, 0.5);
     margin: 16px 0px;
 }
 
+/* Removes default bullet points/indentation so we can use our own checkmark icon */
 .features-list {
     list-style: none;
     padding: 0;
 }
 
+/* Each individual feature row — checkmark + text side by side */
 .features-list li {
     display: flex;
     align-items: center;
@@ -88,6 +117,7 @@ body {
     color: #26251e;
 }
 
+/* The ✓ icon shown before each feature */
 .checkmark {
     color: #26251e;
     font-size: 14px;
@@ -95,12 +125,17 @@ body {
     font-weight: 400;
 }
 
+/* ==========================================================================
+   BUTTON — base styles
+   Shared styling for every button variant. Specific variants (below)
+   override colours only, keeping shape/spacing consistent.
+   ========================================================================== */
 .download-button {
-    margin-top: auto;
+    margin-top: auto;        /* pushes the button to the bottom of the card */
     width: fit-content;
-    background-color: #e6e5e0;
+    background-color: #e6e5e0; /* default "secondary" look */
     border: none;
-    border-radius: 999px;
+    border-radius: 999px;    /* fully rounded, "pill" shape */
     padding: 14px 24px;
     font-size: 16px;
     font-weight: 500;
@@ -109,6 +144,7 @@ body {
     transition: background-color 0.2s ease;
 }
 
+/* Secondary (default) button — hover/active states darken slightly */
 .download-button:hover {
     background-color: #D8D6CE;
 }
@@ -117,6 +153,7 @@ body {
     background-color: #D8D6CE;
 }
 
+/* Primary variant — solid dark button, used for the main call-to-action (e.g. "Get Pro") */
 .download-button.primary {
     background-color: #111;
     color: #fff;
@@ -130,11 +167,31 @@ body {
     background-color: #333;
 }
 
+/* Tertiary variant — transparent background with a grey outline, for the lowest-emphasis action */
+.download-button.tertiary {
+    background-color: transparent;
+    border: 1px solid #ccc;
+    color: #333;
+}
+
+.download-button.tertiary:hover {
+    background-color: rgba(0, 0, 0, 0.05); /* subtle grey tint on hover */
+}
+
+.download-button.tertiary:active {
+    background-color: rgba(0, 0, 0, 0.08); /* slightly darker tint when pressed */
+}
+
+/* ==========================================================================
+   PAGE LABEL
+   Floating badge (top of screen) that tells you which demo version
+   ("HTML version" or "JSX version") you're currently looking at.
+   ========================================================================== */
 .page-label {
     position: fixed;
     top: 16px;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-50%); /* combined with left: 50% this centres the badge */
     font-size: 14px;
     color: #666;
     background: #fff;

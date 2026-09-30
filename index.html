@@ -4,22 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pricing Plans — HTML version</title>
+
+    <!-- Preconnect hints speed up the Google Fonts request by starting the connection early -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Loads the "Inter" font in 4 weights (regular, medium, semibold, bold) -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- All visual styling (colours, spacing, layout) lives in this shared stylesheet -->
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Small floating badge that labels which version of the demo this is -->
     <p class="page-label"><strong>HTML version</strong> — static markup</p>
+
+    <!-- Wraps all pricing cards and arranges them side by side (see .cards-container in styles.css) -->
     <div class="cards-container">
+
+        <!-- ============ CARD 1: Hobby (free) plan ============ -->
         <div class="card">
             <div class="card-top">
                 <h3 class="card-title">Hobby</h3>
+
+                <!-- Price row: just shows "Free" here, no period/suffix needed -->
                 <p class="card-price">
                     <span class="card-price-amount">Free</span>
                 </p>
+
                 <div class="card-content">
                     <p class="includes-text">Includes:</p>
+
+                    <!-- Bullet list of what's included in this plan -->
                     <ul class="features-list">
                         <li>
                             <span class="checkmark">✓</span>
@@ -36,17 +50,26 @@
                     </ul>
                 </div>
             </div>
+
+            <!-- "secondary" = light/neutral button style, used for the free plan -->
             <button class="download-button secondary">Download</button>
         </div>
+
+        <!-- ============ CARD 2: Pro (paid) plan ============ -->
         <div class="card">
             <div class="card-top">
                 <h3 class="card-title">Pro</h3>
+
+                <!-- Price row: amount + "/mo." period shown as two separate spans for styling -->
                 <p class="card-price">
                     <span class="card-price-amount">$20</span>
                     <span class="card-price-period">/mo.</span>
                 </p>
+
                 <div class="card-content">
                     <p class="includes-text">Everything in Hobby, plus:</p>
+
+                    <!-- Bullet list of the extra features unlocked by upgrading to Pro -->
                     <ul class="features-list">
                         <li>
                             <span class="checkmark">✓</span>
@@ -67,6 +90,8 @@
                     </ul>
                 </div>
             </div>
+
+            <!-- "primary" = bold/dark button style, used to draw attention to the paid plan -->
             <button class="download-button primary">Get Pro</button>
         </div>
     </div>
