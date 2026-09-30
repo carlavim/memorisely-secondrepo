@@ -36,3 +36,18 @@
 .download-button.primary:active {
     background-color: #333;
 }
+
+/* Tertiary variant — transparent background with a grey outline */
+.download-button.tertiary {
+    background-color: transparent;
+    border: 1px solid #ccc;
+    color: #333;
+}
+
+.download-button.tertiary:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.download-button.tertiary:active {
+    background-color: rgba(0, 0, 0, 0.08);
+}
