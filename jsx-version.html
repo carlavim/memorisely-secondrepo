@@ -35,13 +35,18 @@
         //* ============ COMPONENT: PricingCard ============
         //   Renders one full pricing card. Reusable — we create multiple cards
         //   by passing different data into the same component (see App below). *//
-        function PricingCard({ title, price, includesText, features, buttonText, buttonVariant }) {
+        function PricingCard({ title, priceAmount, pricePeriod, includesText, features, buttonText, buttonVariant }) {
             return (
                 // JSX uses "className" instead of "class" because "class" is a reserved word in JavaScript
                 <div className="card">
                     {/* Curly braces { } let you insert JavaScript expressions into JSX */}
                     <h1 className="card-title">{title}</h1>
-                    <p className="card-price">{price}</p>
+                    {/* Matches the HTML version: amount and period are separate spans so they can be styled independently */}
+                    <p className="card-price">
+                        <span className="card-price-amount">{priceAmount}</span>
+                        {/* pricePeriod is optional — the Hobby plan has no "/mo." suffix, so only render it when provided */}
+                        {pricePeriod && <span className="card-price-period">{pricePeriod}</span>}
+                    </p>
                     <div className="card-content">
                         <p className="includes-text">{includesText}</p>
                         <ul className="features-list">
@@ -71,7 +76,8 @@
             // Plan 1: free tier, "secondary" (light/neutral) button
             const hobbyPlan = {
                 title: 'Hobby',
-                price: 'Free',
+                priceAmount: 'Free',
+                pricePeriod: null,
                 includesText: 'Includes:',
                 features: ['No credit card required', 'Limited Agent requests', 'Limited Tab completions'],
                 buttonText: 'Download for free',
@@ -81,7 +87,8 @@
             // Plan 2: paid tier, "primary" (bold/dark) button to draw attention
             const proPlan = {
                 title: 'Pro',
-                price: '$20/mo.',
+                priceAmount: '$20',
+                pricePeriod: '/mo.',
                 includesText: 'Everything in Hobby, plus:',
                 features: [
                     'Extended limits on Agent',
@@ -96,7 +103,8 @@
             // Plan 3: top tier, "tertiary" (outlined, transparent) button — lowest visual emphasis
             const businessPlan = {
                 title: 'Business',
-                price: '$50/mo.',
+                priceAmount: '$50',
+                pricePeriod: '/mo.',
                 includesText: 'Everything in Pro, plus:',
                 features: ['Unlimited Agent requests', 'Unlimited Tab completions', 'Background Agents', 'Maximum context windows'],
                 buttonText: 'Get Business',
